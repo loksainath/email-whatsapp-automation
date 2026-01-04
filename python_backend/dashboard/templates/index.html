@@ -1,0 +1,213 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email → WhatsApp Dashboard</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<button class="toggle" onclick="toggleDark()">🌙</button>
+
+<h1>📊 Email → WhatsApp Automation Dashboard</h1>
+
+<div class="cards">
+    <div class="card" id="emails"></div>
+    <div class="card" id="whatsapp"></div>
+    <div class="card" id="replies"></div>
+    <div class="card" id="spam"></div>
+</div>
+
+<a href="/download/logs">
+    <button>⬇ Download CSV</button>
+</a>
+
+<h2>📧 Email Logs</h2>
+<table id="emailTable">
+    <thead>
+        <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<h2>📈 Analytics</h2>
+<div class="chart-container">
+    <canvas id="emailChart"></canvas>
+</div>
+
+<script src="{{ url_for('static', filename='charts.js') }}"></script>
+<script src="{{ url_for('static', filename='logs.js') }}"></script>
+
+<script>
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email → WhatsApp Automation Dashboard</title>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <!-- Socket.IO -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<header class="header">
+  <div class="header-left">
+    <h1>📧 Email → WhatsApp Automation</h1>
+    <span class="subtitle">Real-time Monitoring Dashboard</span>
+  </div>
+
+  <div class="header-right">
+    <button onclick="toggleDarkMode()">🌙</button>
+    <a href="/profile">👤 Profile</a>
+    <a href="/logout">🚪 Logout</a>
+  </div>
+</header>
+
+<!-- ================= POPUP ================= -->
+<div id="popup" class="popup">
+  📬 New Email Received
+</div>
+
+<audio id="alertSound" src="/static/sound.mp3"></audio>
+
+<!-- ================= SUMMARY CARDS ================= -->
+<section class="cards">
+  <div class="card">
+    <h3>Total Emails</h3>
+    <p id="totalEmails">0</p>
+  </div>
+
+  <div class="card">
+    <h3>Queued</h3>
+    <p id="queuedCount">0</p>
+  </div>
+
+  <div class="card">
+    <h3>Replies</h3>
+    <p id="replyCount">0</p>
+  </div>
+
+  <div class="card">
+    <h3>Low Priority</h3>
+    <p id="lowPriority">0</p>
+  </div>
+</section>
+
+<!-- ================= EMAIL LOGS ================= -->
+<section class="table-container">
+  <div class="table-header">
+    <h2>📄 Email Logs</h2>
+
+    <input
+      type="text"
+      id="searchBox"
+      placeholder="🔍 Search sender / subject"
+      onkeyup="updateUI()"
+    />
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>From</th>
+        <th>Subject</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody id="emailTable"></tbody>
+  </table>
+</section>
+
+<!-- ================= ANALYTICS ================= -->
+<section class="analytics">
+  <h2>📈 Analytics</h2>
+
+  <div class="chart-box">
+    <canvas id="priorityChart"></canvas>
+  </div>
+
+  <div class="chart-box">
+    <canvas id="timeChart"></canvas>
+  </div>
+</section>
+
+<!-- ================= CHART INITIALIZATION ================= -->
+<script>
+const priorityChart = new Chart(
+  document.getElementById("priorityChart"),
+  {
+    type: "bar",
+    data: {
+      labels: ["HIGH", "MEDIUM", "LOW"],
+      datasets: [{
+        label: "Email Priority",
+        data: [0, 0, 0],
+        backgroundColor: ["#e74c3c", "#f39c12", "#3498db"]
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  }
+);
+
+const timeChart = new Chart(
+  document.getElementById("timeChart"),
+  {
+    type: "line",
+    data: {
+      labels: [],
+      datasets: [{
+        label: "Emails per Hour",
+        data: [],
+        borderColor: "#3498db",
+        tension: 0.3,
+        fill: false
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  }
+);
+
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+}
+</script>
+
+<!-- ================= DASHBOARD LOGIC ================= -->
+<script src="/static/logs.js"></script>
+
+</body>
+</html>
