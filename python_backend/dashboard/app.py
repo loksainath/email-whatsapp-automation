@@ -83,7 +83,7 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
 
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
 from auth import register_user, authenticate_user, get_user, update_profile
 from session_config import configure_session
 
@@ -141,37 +141,38 @@ def login():
         session.clear()
         session["user_id"] = uid
 
-        # ---------------------------------
-        # CHECK PROFILE COMPLETENESS
-        # ---------------------------------
         user = get_user(uid)
-
-        # DB schema order (IMPORTANT):
-        # 0 full_name
-        # 1 email
-        # 2 gmail_email
-        # 3 gmail_app_password
-        # 4 whatsapp
-        # 5 language
-        # 6 role
-        # 7 created_at
 
         gmail_email = user[2]
         gmail_app_password = user[3]
         whatsapp_number = user[4]
 
-        # Force profile completion
+        # 🚨 Force profile completion
         if not gmail_email or not gmail_app_password or not whatsapp_number:
             return redirect("/profile")
 
-        # Profile complete → Dashboard
+        # ✅ Profile complete → dashboard
         return redirect("http://127.0.0.1:7000/")
 
     return render_template("login.html")
 
 
 # =========================================
-# PROFILE (MANDATORY)
+# SESSION CHECK API (USED BY DASHBOARD)
+# =========================================
+@app.route("/api/session")
+def api_session():
+    if "user_id" in session:
+        return jsonify({
+            "logged_in": True,
+            "user_id": session["user_id"]
+        }), 200
+
+    return jsonify({"logged_in": False}), 401
+
+
+# =========================================
+# PROFILE (MANDATORY STEP)
 # =========================================
 @app.route("/profile", methods=["GET", "POST"])
 def profile():
@@ -189,10 +190,10 @@ def profile():
             language=request.form.get("language", "English")
         )
 
-        # After profile save → dashboard
+        # ✅ After saving profile → QR wait page
         return redirect("http://127.0.0.1:7000/waiting")
 
-
+    # ✅ THIS WAS THE BUG — MUST RENDER TEMPLATE
     user = get_user(uid)
     return render_template("profile.html", user=user)
 

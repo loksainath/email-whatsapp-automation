@@ -66,7 +66,7 @@ function toggleDark() {
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <!-- Socket.IO -->
+  <!-- Socket.IO (used by logs.js) -->
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
 
   <!-- Styles -->
@@ -83,18 +83,26 @@ function toggleDark() {
   </div>
 
   <div class="header-right">
-    <button onclick="toggleDarkMode()">🌙</button>
+    <button
+      type="button"
+      onclick="toggleDarkMode()"
+      title="Toggle Dark Mode"
+    >
+      🌙
+    </button>
     <a href="/profile">👤 Profile</a>
     <a href="/logout">🚪 Logout</a>
   </div>
 </header>
 
 <!-- ================= POPUP ================= -->
-<div id="popup" class="popup">
+<div id="popup" class="popup" aria-live="polite">
   📬 New Email Received
 </div>
 
-<audio id="alertSound" src="/static/sound.mp3"></audio>
+<audio id="alertSound" src="/static/sound.mp3" preload="auto"></audio>
+
+<main>
 
 <!-- ================= SUMMARY CARDS ================= -->
 <section class="cards">
@@ -124,6 +132,7 @@ function toggleDark() {
   <div class="table-header">
     <h2>📄 Email Logs</h2>
 
+    <label for="searchBox" class="sr-only">Search</label>
     <input
       type="text"
       id="searchBox"
@@ -142,7 +151,9 @@ function toggleDark() {
         <th>Time</th>
       </tr>
     </thead>
-    <tbody id="emailTable"></tbody>
+    <tbody id="emailTable">
+      <!-- Filled dynamically -->
+    </tbody>
   </table>
 </section>
 
@@ -159,8 +170,11 @@ function toggleDark() {
   </div>
 </section>
 
+</main>
+
 <!-- ================= CHART INITIALIZATION ================= -->
 <script>
+/* Priority Chart */
 const priorityChart = new Chart(
   document.getElementById("priorityChart"),
   {
@@ -180,6 +194,7 @@ const priorityChart = new Chart(
   }
 );
 
+/* Time Chart */
 const timeChart = new Chart(
   document.getElementById("timeChart"),
   {
@@ -201,6 +216,7 @@ const timeChart = new Chart(
   }
 );
 
+/* Dark Mode */
 function toggleDarkMode() {
   document.body.classList.toggle("dark");
 }
