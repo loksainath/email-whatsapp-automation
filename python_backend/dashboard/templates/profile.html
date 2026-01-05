@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -13,7 +13,7 @@
 
 <form method="POST" style="max-width:520px">
 
-  <!-- Full Name -->
+
   <label for="full_name">Full Name</label>
   <input
     id="full_name"
@@ -24,7 +24,7 @@
     title="Full name"
   >
 
-  <!-- Login Email -->
+ 
   <label for="login_email">Login Email</label>
   <input
     id="login_email"
@@ -35,7 +35,7 @@
     title="Login email"
   >
 
-  <!-- Gmail -->
+
   <label for="gmail_email">📧 Gmail Address</label>
   <input
     id="gmail_email"
@@ -48,7 +48,7 @@
     required
   >
 
-  <!-- Gmail App Password -->
+  
   <label for="gmail_app_password">🔐 Gmail App Password</label>
   <input
     id="gmail_app_password"
@@ -64,7 +64,6 @@
     Use <b>Google App Password</b> (not your Gmail login password)
   </small>
 
-  <!-- WhatsApp -->
   <label for="whatsapp">📱 WhatsApp Number</label>
   <input
     id="whatsapp"
@@ -79,7 +78,7 @@
   >
   <small>Include country code, no + or spaces</small>
 
-  <!-- Language -->
+
   <label for="language">🌐 Preferred Language</label>
   <select
     id="language"
@@ -99,6 +98,137 @@
 
 <br>
 <a href="/">⬅ Back to Dashboard</a>
+
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Profile Settings | Email → WhatsApp</title>
+
+  <!-- Mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="auth-bg">
+
+  <!-- Page Wrapper -->
+  <div class="page auth-page">
+
+    <!-- Profile Card -->
+    <div class="auth-card profile-card">
+
+      <h1 class="auth-title">👤 Profile Settings</h1>
+      <p class="auth-subtitle">
+        Complete your profile to activate Email → WhatsApp automation
+      </p>
+
+      <!-- PROFILE FORM -->
+      <form method="POST" class="auth-form">
+
+        <!-- Full Name (Read-only) -->
+        <div class="form-group">
+          <label for="full_name">Full Name</label>
+          <input
+            id="full_name"
+            type="text"
+            value="{{ user[0] }}"
+            disabled
+            aria-label="Full name"
+          >
+        </div>
+
+        <!-- Login Email (Read-only) -->
+        <div class="form-group">
+          <label for="login_email">Login Email</label>
+          <input
+            id="login_email"
+            type="email"
+            value="{{ user[1] }}"
+            disabled
+            aria-label="Login email"
+          >
+        </div>
+
+        <!-- Gmail Address -->
+        <div class="form-group">
+          <label for="gmail_email">📧 Gmail Address</label>
+          <input
+            id="gmail_email"
+            name="gmail_email"
+            type="email"
+            value="{{ user[2] or '' }}"
+            placeholder="example@gmail.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- Gmail App Password -->
+        <div class="form-group">
+          <label for="gmail_app_password">🔐 Gmail App Password</label>
+          <input
+            id="gmail_app_password"
+            name="gmail_app_password"
+            type="password"
+            placeholder="Enter Gmail App Password"
+            required
+            autocomplete="new-password"
+          >
+          <small class="hint">
+            Use <b>Google App Password</b>, not your Gmail login password
+          </small>
+        </div>
+
+        <!-- WhatsApp Number -->
+        <div class="form-group">
+          <label for="whatsapp">📱 WhatsApp Number</label>
+          <input
+            id="whatsapp"
+            name="whatsapp"
+            type="text"
+            value="{{ user[4] or '' }}"
+            placeholder="91XXXXXXXXXX"
+            pattern="[0-9]{10,15}"
+            required
+          >
+          <small class="hint">
+            Include country code, no + or spaces
+          </small>
+        </div>
+
+        <!-- Language -->
+        <div class="form-group">
+          <label for="language">🌐 Preferred Language</label>
+          <select id="language" name="language">
+            <option value="English" {% if user[5]=='English' %}selected{% endif %}>English</option>
+            <option value="Hindi" {% if user[5]=='Hindi' %}selected{% endif %}>Hindi</option>
+            <option value="Telugu" {% if user[5]=='Telugu' %}selected{% endif %}>Telugu</option>
+          </select>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="auth-button">
+          💾 Save & Continue
+        </button>
+
+      </form>
+
+      <!-- Footer -->
+      <div class="auth-footer">
+        <a href="/">⬅ Back to Dashboard</a>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>

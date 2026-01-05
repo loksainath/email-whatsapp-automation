@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +25,97 @@
     <a href="/login">Already have an account?</a>
   </div>
 </div>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Charset -->
+  <meta charset="UTF-8">
+
+  <!-- Title -->
+  <title>Create Account | Email → WhatsApp</title>
+
+  <!-- Mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="auth-bg">
+
+  <!-- Page Wrapper -->
+  <div class="auth-page">
+
+    <!-- Card -->
+    <div class="auth-card">
+
+      <h1 class="auth-title">📝 Create Account</h1>
+      <p class="auth-subtitle">
+        Start automating Gmail → WhatsApp notifications
+      </p>
+
+      <!-- REGISTER FORM -->
+      <form method="post" class="auth-form">
+
+        <!-- Full Name -->
+        <div class="form-group">
+          <label for="full_name">Full Name</label>
+          <input
+            id="full_name"
+            name="full_name"
+            type="text"
+            placeholder="Your full name"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="example@email.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Create a strong password"
+            required
+            autocomplete="new-password"
+          >
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="auth-button">
+          🚀 Register
+        </button>
+
+      </form>
+
+      <!-- Footer -->
+      <div class="auth-footer">
+        <span>Already have an account?</span>
+        <a href="/login">Login</a>
+      </div>
+
+    </div>
+  </div>
 
 </body>
 </html>

@@ -68,7 +68,7 @@ function toggleDark() {
 
   <!-- Socket.IO (used by logs.js) -->
   <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
-
+  <script src="/static/ui.js" defer></script>
   <!-- Styles -->
   <link rel="stylesheet" href="/static/style.css">
 </head>
@@ -93,6 +93,7 @@ function toggleDark() {
     <a href="/profile">👤 Profile</a>
     <a href="/logout">🚪 Logout</a>
   </div>
+  
 </header>
 
 <!-- ================= POPUP ================= -->
@@ -126,7 +127,7 @@ function toggleDark() {
     <p id="lowPriority">0</p>
   </div>
 </section>
-
+<button id="downloadCSV" class="download">⬇ Download CSV</button>
 <!-- ================= EMAIL LOGS ================= -->
 <section class="table-container">
   <div class="table-header">

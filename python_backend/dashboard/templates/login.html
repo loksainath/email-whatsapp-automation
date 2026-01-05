@@ -1,28 +1,107 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Login | Email → WhatsApp Dashboard</title>
 
-    <!-- Mobile responsiveness -->
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 
-<div class="container">
-  <h2>🔐 Login</h2>
+<div class="login-box">
+    <h2>Login</h2>
 
-  <form method="post">
-    <input name="email" placeholder="Email" required>
-    <input name="password" type="password" placeholder="Password" required>
-    <button type="submit">Login</button>
-  </form>
+    <form method="post">
+        <input name="email" type="email" placeholder="Email" required>
+<input name="password" type="password" placeholder="Password" required>
 
-  <div class="link">
-    <a href="/register">Create Account</a>
-  </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+    <div class="link">
+        <a href="/register">Create new account</a>
+    </div>
 </div>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- Mobile responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Login | Email → WhatsApp Dashboard</title>
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body class="auth-bg">
+
+  <!-- Page transition wrapper -->
+  <div class="page auth-page">
+
+    <!-- Login Card -->
+    <div class="auth-card">
+
+      <h1 class="auth-title">Welcome Back 👋</h1>
+      <p class="auth-subtitle">
+        Login to continue to your Email → WhatsApp Dashboard
+      </p>
+
+      <!-- Login Form -->
+      <form method="post" class="auth-form">
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="you@example.com"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            required
+            autocomplete="current-password"
+          >
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="auth-button">
+          🔐 Login
+        </button>
+
+      </form>
+
+      <!-- Footer link -->
+      <div class="auth-footer">
+        <span>New here?</span>
+        <a href="/register">Create an account</a>
+      </div>
+
+    </div>
+  </div>
+
 </body>
 </html>
